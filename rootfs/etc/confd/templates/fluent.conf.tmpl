@@ -158,6 +158,16 @@
   tag kube-controller-manager
 </source>
 
+<source>
+  @type tail
+  path /var/log/kube-apiserver-audit.log
+  <parse>
+    @type json
+  </parse>
+  pos_file /var/log/gcp-kube-apiserver-audit.log.pos
+  tag kube-apiserver-audit
+</source>
+
 # Example:
 # W0204 06:49:18.239674       7 reflector.go:245] pkg/scheduler/factory/factory.go:193: watch of *api.Service ended with: 401: The event in requested index is outdated and cleared (the requested history has been cleared [2578313/2577886]) [2579312]
 <source>

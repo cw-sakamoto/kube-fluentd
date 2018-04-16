@@ -1,7 +1,8 @@
-KUBE_FLUENTD_VERSION ?= 0.9.12
-FLUENTD_VERSION ?= 0.14.22
+KUBE_FLUENTD_VERSION ?= 0.9.13
+FLUENTD_VERSION ?= 1.1.3
+S6OVERAY_VERSION ?= 1.21.4.0
 
-REPOSITORY ?= mumoshu/kube-fluentd
+REPOSITORY ?= cwsakamoto/kube-fluentd
 TAG ?= $(FLUENTD_VERSION)-$(KUBE_FLUENTD_VERSION)
 IMAGE ?= $(REPOSITORY):$(TAG)
 ALIAS ?= $(REPOSITORY):$(FLUENTD_VERSION)
@@ -25,7 +26,7 @@ publish:
 	docker push $(IMAGE) && docker push $(ALIAS)
 
 $(DOCKERFILE): $(BUILD_ROOT)
-	sed 's/%%FLUENTD_VERSION%%/'"$(FLUENTD_VERSION)"'/g;' Dockerfile.template > $(DOCKERFILE)
+	sed -e 's/%%FLUENTD_VERSION%%/'"$(FLUENTD_VERSION)"'/g' -e 's/%%S6OVERAY_VERSION%%/'"$(S6OVERAY_VERSION)"'/g' Dockerfile.template > $(DOCKERFILE)
 
 $(ROOTFS): $(BUILD_ROOT)
 	cp -R rootfs $(ROOTFS)
