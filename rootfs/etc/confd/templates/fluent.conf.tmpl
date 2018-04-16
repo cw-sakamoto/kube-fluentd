@@ -160,8 +160,10 @@
 
 <source>
   @type tail
-  format json
   path /var/log/kube-apiserver-audit.log
+  <parse>
+    @type json
+  </parse>
   pos_file /var/log/gcp-kube-apiserver-audit.log.pos
   tag kube-apiserver-audit
 </source>
